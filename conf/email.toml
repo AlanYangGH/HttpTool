@@ -1,0 +1,10 @@
+title = "Email Config File"
+#convert tool: https://xuri.me/toml-to-go/
+
+[http]
+port = 6899
+
+[mail_gun]
+api_key = "key-68eb1168e1b7401889b76ff3f4160529"
+domain = "mg.pokertime.cc"
+from = "PokerTime <help@pokertime.cc>"
