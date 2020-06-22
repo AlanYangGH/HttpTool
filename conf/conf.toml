@@ -1,4 +1,4 @@
-title = "Email Config File"
+title = "Config File"
 #convert tool: https://xuri.me/toml-to-go/
 
 [http]

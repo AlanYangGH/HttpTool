@@ -1,6 +1,6 @@
 package configParser
 
-type EmailConfig struct {
+type Config struct {
 	HTTP struct {
 		Port int `toml:"port"`
 	} `toml:"http"`

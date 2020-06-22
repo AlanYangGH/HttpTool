@@ -47,7 +47,7 @@ func (s *Server) serveHTTP() {
 	go func() {
 		http.HandleFunc("/", s.processHTTP)
 		http.HandleFunc("/send_email", s.SendEmail)
-		port := config.EmailConfig.HTTP.Port
+		port := config.C.HTTP.Port
 		zap.L().Info("The HTTP server listen", zap.Int("port", port))
 		err := http.ListenAndServe(fmt.Sprintf(":%v", port), nil)
 		if err != nil {

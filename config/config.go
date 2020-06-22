@@ -6,13 +6,13 @@ import (
 )
 
 const (
-	emailConfigFileName = "../conf/email.toml"
+	configFileName = "./conf/conf.toml"
 )
 
-var EmailConfig configParser.EmailConfig
+var C configParser.Config
 
 func LoadConfig(configPath string) error {
-	err := configParser.ReadConfig(path.Join(configPath, emailConfigFileName), &EmailConfig)
+	err := configParser.ReadConfig(path.Join(configPath, configFileName), &C)
 	if err != nil {
 		return err
 	}

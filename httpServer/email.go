@@ -1,15 +1,12 @@
 package httpServer
 
 import (
-	"context"
-	"email/config"
+	server "email/server/email"
 	"encoding/json"
 	"fmt"
-	"github.com/mailgun/mailgun-go/v3"
 	"go.uber.org/zap"
 	"net/http"
 	"strings"
-	"time"
 )
 
 func (s *Server) SendEmail(w http.ResponseWriter, req *http.Request) {
@@ -49,7 +46,7 @@ func (s *Server) SendEmail(w http.ResponseWriter, req *http.Request) {
 	}
 
 	emailAddress = strings.Replace(strings.Replace(strings.Replace(emailAddress, `["`, "", -1), `"]`, "", -1), `","`, ";", -1)
-	resp, err := SendSimpleMessage(title, content, emailAddress)
+	resp, err := server.SendSimpleMessage(title, content, emailAddress)
 	if err != nil {
 		zap.L().Info("MailGunReturnError", zap.String("error", err.Error()))
 		jsons, _ := json.Marshal(SendReturn{400, "MailGun Return Error."})
@@ -65,28 +62,4 @@ func (s *Server) SendEmail(w http.ResponseWriter, req *http.Request) {
 	return
 }
 
-// to 收件人邮件地址，多个使用 ";" 隔开
-func SendSimpleMessage(subject, text, to string) (string, error) {
-	mg := mailgun.NewMailgun(config.EmailConfig.MailGun.Domain, config.EmailConfig.MailGun.ApiKey)
-	m := mg.NewMessage(
-		config.EmailConfig.MailGun.From,
-		subject,
-		text,
-	)
 
-	toEmailMap := strings.Split(to, ";")
-	for k, mail := range toEmailMap {
-		prefix := strings.Split(mail, "@")[0]
-
-		m.AddRecipientAndVariables(mail, map[string]interface{}{
-			"first": prefix,
-			"id":    k,
-		})
-	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*30)
-	defer cancel()
-
-	_, id, err := mg.Send(ctx, m)
-	return id, err
-}
