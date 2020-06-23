@@ -1,7 +1,7 @@
 package config
 
 import (
-	"email/configParser"
+	"tool/configParser"
 	"path"
 )
 

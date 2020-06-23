@@ -4,7 +4,23 @@ title = "Config File"
 [http]
 port = 6899
 
-[mail_gun]
-api_key = "key-68eb1168e1b7401889b76ff3f4160529"
-domain = "mg.pokertime.cc"
-from = "PokerTime <help@pokertime.cc>"
+[mail_mailgun]
+mm_api_key = "key-68eb1168e1b7401889b76ff3f4160529"
+mm_domain = "mg.pokertime.cc"
+mm_from = "PokerTime <help@pokertime.cc>"
+
+[sms]
+sms_sign = "【PT】"
+sms_content_cn = "您的验证码是%v。如非本人操作，请忽略本短信"
+sms_content_en = "Your verification code is %v."
+
+[sms_twilio]
+st_api_url = "https://api.twilio.com/2010-04-01/Accounts/%v/Messages.json"
+st_sid = "AC389ec3ec3118c4fcb75a68b27a2c72d2"
+st_token = "edeea24fc404720e390667f6f2a8f2a4"
+st_from = "+16502755623"
+
+[sms_qixun]
+sq_api_url = "https://mb345.com/ws/BatchSend2.aspx?CorpID=%v&Pwd=%v&Mobile=%v&Content=%v&Cell=&SendTime="
+sq_sid = "sjzlkj0006552"
+sq_pwd = "123456a"

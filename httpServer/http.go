@@ -2,7 +2,7 @@ package httpServer
 
 import (
 	"context"
-	"email/config"
+	"tool/config"
 	"fmt"
 	"go.uber.org/zap"
 	"io/ioutil"
@@ -47,6 +47,7 @@ func (s *Server) serveHTTP() {
 	go func() {
 		http.HandleFunc("/", s.processHTTP)
 		http.HandleFunc("/send_email", s.SendEmail)
+		http.HandleFunc("/send_sms", s.SendSms)
 		port := config.C.HTTP.Port
 		zap.L().Info("The HTTP server listen", zap.Int("port", port))
 		err := http.ListenAndServe(fmt.Sprintf(":%v", port), nil)

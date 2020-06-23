@@ -33,7 +33,7 @@ func WaitSignalSynchronized() {
 			}
 		}
 	}()
-	zap.L().Warn("Waiting For Singals")
+	zap.L().Warn("Waiting For Signals")
 	<-doneCh
 	zap.L().Warn("Need Exit")
 }

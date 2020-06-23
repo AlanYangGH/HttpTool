@@ -26,7 +26,6 @@ func readFileData(path string) (data []byte, err error) {
 	return
 }
 
-
 //ReadConfig read the server config from toml file
 func ReadConfig(path string, conf interface{}) error {
 	confData, err := readFileData(path)

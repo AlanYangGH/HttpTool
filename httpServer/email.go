@@ -1,7 +1,7 @@
 package httpServer
 
 import (
-	server "email/server/email"
+	emailServer "tool/server/email"
 	"encoding/json"
 	"fmt"
 	"go.uber.org/zap"
@@ -46,7 +46,8 @@ func (s *Server) SendEmail(w http.ResponseWriter, req *http.Request) {
 	}
 
 	emailAddress = strings.Replace(strings.Replace(strings.Replace(emailAddress, `["`, "", -1), `"]`, "", -1), `","`, ";", -1)
-	resp, err := server.SendSimpleMessage(title, content, emailAddress)
+	var email emailServer.MailServer
+	resp, err := email.SendMailUseMailGun(title, content, emailAddress)
 	if err != nil {
 		zap.L().Info("MailGunReturnError", zap.String("error", err.Error()))
 		jsons, _ := json.Marshal(SendReturn{400, "MailGun Return Error."})
@@ -61,5 +62,3 @@ func (s *Server) SendEmail(w http.ResponseWriter, req *http.Request) {
 	w.Write(jsons)
 	return
 }
-
-

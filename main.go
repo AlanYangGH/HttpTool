@@ -1,10 +1,10 @@
 package main
 
 import (
-	"email/common"
-	"email/config"
-	"email/httpServer"
-	"email/internel"
+	"tool/common"
+	"tool/config"
+	"tool/httpServer"
+	"tool/internel"
 	"flag"
 	"fmt"
 	"go.uber.org/zap"
@@ -18,10 +18,10 @@ func init() {
 }
 
 func main() {
-	configPath := flag.String("cfg", "./", "path for config file directory")
-
 	internel.SetupLogger("log/log.log", zap.DebugLevel)
 	defer internel.CloseLogger()
+
+	configPath := flag.String("cfg", "./", "path for config file directory")
 
 	if *configPath == "" {
 		log.Fatalln("You must specify the config file path with -path")
